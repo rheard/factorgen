@@ -41,7 +41,7 @@ jobs:
 
       - name: Docstring policy for tests (pylint)
         run: >
-          python -m pylint factorgen/tests
+          python -m pylint tests
           --disable=all
           --enable=C0115,C0116
           --no-docstring-rgx="^(?!(test_|Test)).*"
