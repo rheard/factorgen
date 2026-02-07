@@ -42,6 +42,9 @@ test-command=[
     'python -m pylint {project}/tests --disable=all --enable=C0115,C0116 --no-docstring-rgx="^(?!(test_|Test)).*"',
 ]
 
+[tool.setuptools.packages.find]
+include = ["factorgen"]
+
 [tool.ruff]
 line-length = 120
 
