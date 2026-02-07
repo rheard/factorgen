@@ -69,7 +69,7 @@ for n, factors in gen:
 ```
 
 
-### Constraining the primes (example: only primes ≡ 1 mod 4)
+### Constraining the primes (example: only primes $\equiv 1 \bmod 4$)
 
 As mentioned, you can restrict the prime set using the `nextprime` argument to numbers whose prime factors come 
     from a subset by returning the **next allowed prime strictly greater than `p`**.
