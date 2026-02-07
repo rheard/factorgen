@@ -5,7 +5,6 @@ requires = [
 
 [project]
 name = "factorgen"
-dynamic = ["license"]
 version = "0.0.1"
 authors = [
   { name="Ryan Heard", email="ryanwheard@gmail.com" },
