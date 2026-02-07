@@ -51,9 +51,11 @@ The `Factorizations` class accepts a `nextprime` argument for customization of t
     This can also be used to provide a faster backend, for example by use of cyPARI.
 
 ```python
+from functools import lru_cache
 from cypari import pari
 from factorgen import Factorizations
 
+@lru_cache(maxsize=2_000_000)
 def nextprime(p: int) -> int:
     return int(pari(p).nextprime())
 
