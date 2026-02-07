@@ -27,20 +27,15 @@ dependencies = [
     "sympy",
 ]
 
+[project.optional-dependencies]
+test = [
+    "pytest",
+    "ruff",
+    "pylint",
+]
+
 [project.urls]
 Repository = "https://github.com/rheard/factorgen"
-
-[tool.cibuildwheel]
-build = "cp3{9,10,11,12,13,14}-*"
-
-test-requires=["ruff", "pylint", "pytest"]
-test-command=[
-    "python -m pytest {project}/tests",
-    "ruff check {project}",
-
-    # Require docstrings on all unit tests!
-    'python -m pylint {project}/tests --disable=all --enable=C0115,C0116 --no-docstring-rgx="^(?!(test_|Test)).*"',
-]
 
 [tool.setuptools.packages.find]
 include = ["factorgen"]
