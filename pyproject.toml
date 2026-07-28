@@ -5,7 +5,7 @@ requires = [
 
 [project]
 name = "factorgen"
-version = "0.0.1"
+version = "0.0.2"
 authors = [
   { name="Ryan Heard", email="ryanwheard@gmail.com" },
 ]
@@ -55,7 +55,7 @@ extend-select = [
     "COM",    # flake8-commas
     "DOC",    # lint.pydoclint
     "D",      # lint.pydocstyle
-    "D213",   # Require multi-line docstring summary should start on second line, which is not Google convention
+    "multi-line-summary-second-line",   # Require multi-line docstring summary should start on second line, which is not Google convention
     "E", "W", # pycodestyle
     # "ERA",    # eradicate    TODO: I'd like to enable this. Problem is, see the wishful thinking tests in test_basic
     "F",      # Pyflakes
@@ -87,18 +87,18 @@ extend-select = [
     "YTT",    # flake8-2020
 ]
 ignore=[
-    "ANN201",  # Missing return type
-    "D100",    # Missing docstring in public module
-    "D104",    # Missing docstring in public package
-    "D105",    # Missing docstring in magic method
-    "D202",    # Blank line after function docstring
-    "D205",  # 1 blank line required between summary line and description
-    "D212",    # Multi-line docstring summary should start at the first line
-    "D415",    # Closing punctuation on docstrings
-    "PT013",   # Incorrect import of pytest
-    "RUF023",  # __slots__ is not sorted
-    "RUF067",  # `__init__` module should only contain docstrings and re-exports
-    "TRY003",  # Avoid specifying long messages outside the exception class
+    "missing-return-type-undocumented-public-function",  # Missing return type
+    "undocumented-public-module",    # Missing docstring in public module
+    "undocumented-public-package",    # Missing docstring in public package
+    "undocumented-magic-method",    # Missing docstring in magic method
+    "blank-line-after-function",    # Blank line after function docstring
+    "missing-blank-line-after-summary",  # 1 blank line required between summary line and description
+    "multi-line-summary-first-line",    # Multi-line docstring summary should start at the first line
+    "missing-terminal-punctuation",    # Closing punctuation on docstrings
+    "pytest-incorrect-pytest-import",   # Incorrect import of pytest
+    "unsorted-dunder-slots",  # __slots__ is not sorted
+    "non-empty-init-module",  # `__init__` module should only contain docstrings and re-exports
+    "raise-vanilla-args",  # Avoid specifying long messages outside the exception class
 ]
 
 [tool.ruff.lint.pydocstyle]

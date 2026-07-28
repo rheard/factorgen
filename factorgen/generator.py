@@ -4,6 +4,8 @@
 #   Idk if I'm doing something wrong or mypyc is, but I'm tired of playing with it.
 #       Even not compiled this is so much faster than factoring with PARI
 
+from __future__ import annotations
+
 import heapq
 import os
 import pickle
@@ -65,7 +67,7 @@ class Factorizations:
         # Count of yielded results (handy for checkpoint cadence)
         self.yielded: int = 0
 
-    def __iter__(self) -> 'Factorizations':
+    def __iter__(self) -> Factorizations:
         return self
 
     def save(self, path: str | Path) -> None:
@@ -86,7 +88,7 @@ class Factorizations:
              path: str | Path,
              max_i: int | None = None,
              min_i: int | None = None,
-             nextprime: Callable[[int], int] | None = None) -> 'Factorizations':
+             nextprime: Callable[[int], int] | None = None) -> Factorizations:
         """Load generator state from pickle. If max_i is provided, overrides the saved bound."""
         if nextprime is None:
             nextprime = lru_cache(maxsize=200_000)(sympy.nextprime)
@@ -127,7 +129,8 @@ class Factorizations:
 
                 # Advance the stream cursor for this base and reinsert it.
                 p2 = self.nextprime(p)
-                heapq.heappush(heap, (base_n * p2, True, base_n, p2, base_factors))
+                if p2 is not None:
+                    heapq.heappush(heap, (base_n * p2, True, base_n, p2, base_factors))
 
                 # The popped candidate is a real n-node we should yield/expand.
                 last_prime = p
@@ -148,7 +151,8 @@ class Factorizations:
             # 2) Start (or continue) the "append larger primes" stream for this n.
             #    Next distinct prime must be > last_prime (except last_prime==1).
             np = self.nextprime(last_prime)
-            heapq.heappush(heap, (n * np, True, n, np, n_factors))
+            if np is not None:
+                heapq.heappush(heap, (n * np, True, n, np, n_factors))
 
             if n < self.min_i:
                 continue

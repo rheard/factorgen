@@ -1,5 +1,7 @@
+from __future__ import annotations
+
 from functools import lru_cache
-from pathlib import Path
+from typing import TYPE_CHECKING
 
 from sympy import (
     factorint as sympy_factorint,
@@ -7,6 +9,9 @@ from sympy import (
 )
 
 from factorgen import Factorizations
+
+if TYPE_CHECKING:
+    from pathlib import Path
 
 try:
     from cypari import pari
@@ -80,6 +85,24 @@ def test_limited():
         assert i_fact == n_fact
         assert not any(p % 4 in {2, 3} for p in i_fact)
         i += 1
+
+
+def test_bounded_nextprime():
+    """Validate nextprime can return None to indicate a bounded list of factors."""
+    limit = 20000
+    primes = (2, 3, 5)
+
+    def bounded_nextprime(n: int) -> int | None:
+        return next((p for p in primes if p > n), None)
+
+    expected = [
+        (i, factorint(i))
+        for i in range(2, limit + 1)
+        if all(p in primes for p in factorint(i))
+    ]
+
+    gen = Factorizations(limit, min_i=2, nextprime=bounded_nextprime)
+    assert list(gen) == expected
 
 
 def test_resume(tmp_path: Path):
